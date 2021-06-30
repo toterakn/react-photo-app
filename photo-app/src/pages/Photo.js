@@ -4,28 +4,34 @@ import Container from 'react-bootstrap/Container';
 
 const Photo = ({ match }) => {
     const id = match.params.id;
-
-    const [photoInfo, setPhotoInfo] = useState({
-        id: null,
+    const initPhotoInfo = {
+        id: id,
         text: null,
         type: null,
         img: null
-    });
+    }
+    const [photoInfo, setPhotoInfo] = useState(initPhotoInfo);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await fetch(`/api/photos/byId/${id}`);
+                const result = await fetch(`/api/photos/byId/${photoInfo.id}`);
                 const body = await result.json();
-                setPhotoInfo(body);
+
+                if(result.status === 200) {
+                    setPhotoInfo(body);
+                } else {
+                    console.log('Error retrieving photo by id');
+                    setPhotoInfo({id: null, text: null, type: null, img: null});
+                }
             } catch(err) {
-                console.log('Error retrieving photo by id')
+                console.log('Error retrieving photo by id ' + err)
             }
         }
         fetchData();
-    }, [id]); /** whenever the id changes **/
+    }, [photoInfo.id]); /** whenever the id changes **/
 
-    if (!id) return <PageNotFound />;
+    if (!photoInfo.id) return <PageNotFound />;
 
     return(
         <Container>

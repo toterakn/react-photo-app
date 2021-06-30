@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {MongoClient} from 'mongodb';
 
-//const photosCache = {};
 
 const app = express();
 
@@ -33,9 +32,13 @@ app.get('/api/photos/all', (req, res) => {
 app.get('/api/photos/byId/:id', async (req, res) => {
     withDB(async (db) => {
         const photoId = req.params.id;
-
         const photoInfo = await db.collection('photos').findOne({id: photoId});
-        res.status(200).json(photoInfo);
+
+        if(photoInfo === null) {
+           res.status(404).json(`Could not find photo information for id: ${photoId}`);
+        } else {
+            res.status(200).json(photoInfo);
+        }
     }, res);
 });
 
@@ -43,9 +46,13 @@ app.get('/api/photos/byId/:id', async (req, res) => {
 app.get('/api/photos/byType/:type', async (req, res) => {
     withDB(async (db) => {
         const photoType = req.params.type;
-
         const photoInfo = await db.collection('photos').find({type: photoType}).toArray();
-        res.status(200).json(photoInfo);
+
+        if(photoInfo === null) {
+           res.status(404).json(`Could not find photo information for type: ${photoType}`);
+        } else {
+            res.status(200).json(photoInfo);
+        }
     }), res;
 });
 
