@@ -1,0 +1,7 @@
+/** This file is were we tell Babel how we want it to
+transform the ES6 code that we write into common JS
+code that Node.js can execute.  **/
+
+{
+    "presets": ["@babel/preset-env"]
+}
