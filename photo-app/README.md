@@ -17,7 +17,7 @@ In the 'photo-app-backend' project directory, you can also run:
 This will run the backend server [http://localhost:8000](http://localhost:8000).
 
 You'll also want to start an instance of mongodb as this is where I store the photo data created in this app
-### `mongod --config /usr/local/etc/mongod.conf --fork`
+### `mongod --config /usr/local/etc/mongod.conf --fork` ///usr/local/mongodb/
 **Connection Details**
 - MongoDB Connection: mongodb://localhost:27017
 - Database Name: photo-app

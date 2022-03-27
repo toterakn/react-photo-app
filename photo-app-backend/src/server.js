@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {MongoClient} from 'mongodb';
 
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -42,7 +41,7 @@ app.get('/api/photos/byId/:id', async (req, res) => {
     }, res);
 });
 
-//Get photo by type (arugula, kale, or spinach)
+//Get photo by type (seflie, regular)
 app.get('/api/photos/byType/:type', async (req, res) => {
     withDB(async (db) => {
         const photoType = req.params.type;
